@@ -17,7 +17,7 @@ describe('/strings', () => {
         .get('/strings/hello/octopus')
         .then(res => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ result: 'Hello, Octopus!' });
+          expect(res.body).toEqual({ result: 'Hello, octopus!' });
           done();
         });
     });
@@ -36,7 +36,7 @@ describe('/strings', () => {
   });
 
   describe('GET /lower/{string}', () => {
-    xit('returns the lowercased string', done => {
+    it('returns the lowercased string', done => {
       request(app)
         .get('/strings/lower/HELLO')
         .then(res => {
