@@ -3,7 +3,7 @@ const app = require('../src/app');
 
 describe('/strings', () => {
   describe('GET /hello/{string}', () => {
-    it('returns "Hello world!" when passed "world"', done => {
+    it('returns "Hello, world!" when passed "world"', done => {
       request(app)
         .get('/strings/hello/world')
         .then(res => {
@@ -12,10 +12,19 @@ describe('/strings', () => {
           done();
         });
     });
+    it('returns "Hello, octopus!" when passed "octopus"', done => {
+      request(app)
+        .get('/strings/hello/octopus')
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 'Hello, Octopus!' });
+          done();
+        });
+    });
   });
 
   describe('GET /upper/{string}', () => {
-    xit('returns the uppercased string', done => {
+    it('returns the uppercased string', done => {
       request(app)
         .get('/strings/upper/hello')
         .then(res => {
