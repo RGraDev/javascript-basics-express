@@ -20,7 +20,7 @@ const reverseWordsInArray = strings =>
     string
       .split('')
       .reverse()
-      .join('')
+      .join(''),
   );
 
 const onlyEven = numbers => numbers.filter(number => number % 2 === 0);
@@ -36,9 +36,7 @@ const removeSpaces = string => string.split(' ').join('');
 const sumNumbers = numbers => numbers.reduce((a, b) => a + b, 0);
 
 const sortByLastLetter = strings =>
-  strings.sort(
-    (a, b) => a.charCodeAt(a.length - 1) - b.charCodeAt(b.length - 1)
-  );
+  strings.sort((a, b) => a.charCodeAt(a.length - 1) - b.charCodeAt(b.length - 1));
 
 module.exports = {
   getNthElement,

@@ -8,6 +8,13 @@ const {
 } = require('./lib/strings');
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
+const {
+  arrayToCSVString,
+  addToArray2,
+  elementsStartingWithAVowel,
+  getNthElement,
+  removeNthElement2, removeNthElement,
+} = require('./lib/arrays');
 
 const app = express();
 
@@ -107,6 +114,31 @@ app.get('/booleans/:string/starts-with/:char', (req, res) => {
   return req.params.char.length > 1
     ? res.status(400).json({ error: 'Parameter "character" must be a single character.' })
     : res.status(200).json({ result: startsWith(req.params.char, req.params.string) });
+});
+
+app.post('/arrays/element-at-index/:index', (req, res) => {
+  res.status(200).json({ result: getNthElement(req.params.index, req.body.array) });
+});
+
+app.post('/arrays/to-string', (req, res) => {
+  res.status(200).json({ result: arrayToCSVString(req.body.array) });
+});
+
+app.post('/arrays/append', (req, res) => {
+  res.status(200).json({ result: addToArray2(req.body.value, req.body.array) });
+});
+
+app.post('/arrays/starts-with-vowel', (req, res) => {
+  res.status(200).json({ result: elementsStartingWithAVowel(req.body.array) });
+});
+
+app.post('/arrays/remove-element', (req, res) => {
+  const { index } = req.query;
+  const { array } = req.body;
+
+  return index === undefined
+    ? res.status(200).json({ result: removeNthElement2(0, array) })
+    : res.status(200).json({ result: removeNthElement2(Number(index), array) });
 });
 
 module.exports = app;
