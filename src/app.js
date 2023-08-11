@@ -1,20 +1,8 @@
 const express = require('express');
-const {
-  sayHello,
-  uppercase,
-  lowercase,
-  firstCharacter,
-  firstCharacters,
-} = require('./lib/strings');
+const { sayHello, uppercase, lowercase, firstCharacter, firstCharacters } = require('./lib/strings');
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
-const {
-  arrayToCSVString,
-  addToArray2,
-  elementsStartingWithAVowel,
-  getNthElement,
-  removeNthElement2, removeNthElement,
-} = require('./lib/arrays');
+const { arrayToCSVString, addToArray2, elementsStartingWithAVowel, getNthElement, removeNthElement2 } = require('./lib/arrays');
 
 const app = express();
 
@@ -33,33 +21,27 @@ app.get('/strings/lower/:string', (req, res) => {
 });
 
 app.get('/strings/first-characters/:string', (req, res) => {
-  if (req.query.length) {
-    res.status(200).json({ result: firstCharacters(req.params.string, req.query.length) });
-  } else {
-    res.status(200).json({ result: firstCharacter(req.params.string) });
-  }
+  return req.query.length
+    ? res.status(200).json({ result: firstCharacters(req.params.string, req.query.length) })
+    : res.status(200).json({ result: firstCharacter(req.params.string) });
 });
 
 app.get('/numbers/add/:a/and/:b', (req, res) => {
   const a = Number(req.params.a);
   const b = Number(req.params.b);
 
-  if (Number.isNaN(a) || Number.isNaN(b)) {
-    res.status(400).json({ error: 'Parameters must be valid numbers.' });
-  } else {
-    res.status(200).json({ result: add(a, b) });
-  }
+  return Number.isNaN(a) || Number.isNaN(b)
+    ? res.status(400).json({ error: 'Parameters must be valid numbers.' })
+    : res.status(200).json({ result: add(a, b) });
 });
 
 app.get('/numbers/subtract/:a/from/:b', (req, res) => {
   const a = Number(req.params.a);
   const b = Number(req.params.b);
 
-  if (Number.isNaN(a) || Number.isNaN(b)) {
-    res.status(400).json({ error: 'Parameters must be valid numbers.' });
-  } else {
-    res.status(200).json({ result: subtract(b, a) });
-  }
+  return Number.isNaN(a) || Number.isNaN(b)
+    ? res.status(400).json({ error: 'Parameters must be valid numbers.' })
+    : res.status(200).json({ result: subtract(b, a) });
 });
 
 app.post('/numbers/multiply', (req, res) => {
